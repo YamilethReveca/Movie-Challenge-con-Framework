@@ -4,24 +4,25 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CardComponent } from './components/card/card.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 //import { PeliculasDetallesComponent } from './components/peliculas-detalles/peliculas-detalles.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SectionComponent } from './components/section/section.component';
-// import { PaginacionComponent } from './components/paginacion/paginacion.component';
+import { PaginacionComponent } from './components/paginacion/paginacion.component';
+import { ContenedorFiltroOrdenamientoComponent } from './components/contenedor-filtro-ordenamiento/contenedor-filtro-ordenamiento.component';
+import { CardsComponent } from './components/cards/cards.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CardComponent,
+    AppComponent,   
     HomeComponent,
     FooterComponent,
    // PeliculasDetallesComponent,
-    HeaderComponent,
-    SectionComponent,
-   // PaginacionComponent
+    HeaderComponent,  
+    PaginacionComponent,
+    ContenedorFiltroOrdenamientoComponent,
+    CardsComponent,
+   
   ],
   imports: [
     BrowserModule,
