@@ -1,6 +1,11 @@
 <app-header></app-header>
-<app-section></app-section>
-<app-card></app-card>
+<app-contenedor-filtro-ordenamiento></app-contenedor-filtro-ordenamiento>
+<app-cards [movies]="data"></app-cards>
+<app-paginacion  
+[currentPage]="currentPage"
+[totalPages]="totalPages"
+(pageChange)="changePage($event)"
+></app-paginacion>
 <app-footer></app-footer>
 
 
