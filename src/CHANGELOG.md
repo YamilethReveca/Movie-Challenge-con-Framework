@@ -1,4 +1,52 @@
-1.0.0 - 2023-12-06
+
+--------
+## 1.1.0 - 2023-12-13
+
+
+### Sprint learnings
+En esta sección enumera los aprendizajes del sprint.
+
+* Creación de componentes.
+
+* Uso de libreria Bootstrap.
+
+* Uso de servicios para colocar la Api.
+
+* Visualizar las peliculas.
+
+
+
+### Added
+En esta sección especifica las funcionalides que agregaste.
+
+* Visualizar las peliculas.
+
+
+### Changed
+En esta sección detalla los cambios que hiciste a funcionalides ya existentes.
+
+* Anteriormente tenia en el cards.ts el servicio de la Api, y tuve que modificarlo ya que tuve OH y me explicaron que el componente home debia tener el servicio de la api.
+
+### Fixed
+En esta sección describe los _bugs_ solucionados.
+Tenia una duda respecto a la paginación , pense que iba en el componente card. Y en la OH me explicaron que debia ser un componente. Anteriormente lo tenia en componente cars y tuve que modificar y crear su componente para tener todo segmentado.
+
+### Removed
+En esta sección incluye las funcionalidades eliminadas.
+
+Elimine componentes que no estaba descriptivo al proyecto como card y section.
+
+Comandos para visualizar los cambis hechos en este sprint.
+
+* 413b5fb Modificacion realizada consultada por en OH (Yamileth Reveca) 2023-12-12
+* b379363 vista de peliculas con paginacion (Yamileth Reveca) 2023-12-11
+* b39ae9b componentes y CHANGELOG (Yamileth Reveca) 2023-12-06
+* e1a9dce initial commit (Yamileth Reveca) 2023-12-05
+
+
+-----
+
+## 1.0.0 - 2023-12-06
 
 ### Sprint learnings
 
@@ -19,3 +67,5 @@ No.
 ### Removed
 
 No.
+
+--------
