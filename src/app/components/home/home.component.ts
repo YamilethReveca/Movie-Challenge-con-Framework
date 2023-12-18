@@ -4,9 +4,10 @@ import { ApiService } from 'src/app/service/api.service';
 
 interface ApiResponse {
   results: Item[];
-  total_pages: number;
+  total_paginas: number;
 }
 
+// item para obtener de la api el poster,la fecha y el titulo
 interface Item {
   poster_path: string;
   release_date: Date;
@@ -19,48 +20,44 @@ interface Item {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  imagenes = 'http://image.tmdb.org/t/p/w500';
-
   data: Item[] = [];
-  currentPage = 1;
-  totalPages = 1;
+  paginaActual = 1;
+  paginasTotales = 5;
 
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.getData(this.currentPage);
+    this.getData(this.paginaActual);
   }
 
-  changePage(newPage: number) {
+  cambioPagina(newPage: number) {
     console.log('Changing page to:', newPage);
-    this.currentPage = newPage;
-    this.getData(this.currentPage);
+    this.paginaActual = newPage;
+    this.getData(this.paginaActual);
   }
 
 
   getData(page: number) {
-    if (page > this.totalPages) {
+    const maxPagesToShow = 5;
+    if (page > maxPagesToShow || page > this.paginasTotales) {
       return;
     }
-    this.apiService.getData(page).subscribe(
-      (response: ApiResponse) => {
+    this.apiService.getData(page).subscribe({
+      next: (response: ApiResponse) => {
         this.data = response.results.map(item => ({
           ...item,
           release_date: new Date(item.release_date),
         }));
-        // Actualiza this.totalPages solo si el valor proporcionado es mayor al actual
-        this.totalPages = Math.max(this.totalPages, response.total_pages);
+        
       },
-      error => {
+      error: (error) => {
         console.error('Error al obtener datos:', error);
       }
-    );
-
+    });
   }
 
-  
+
 }
 
 

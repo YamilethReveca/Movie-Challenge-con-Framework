@@ -17,7 +17,7 @@ export class ApiService {
   getData(pagina: number): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.apiKey}`
+   //   'Authorization': `Bearer ${this.apiKey}`
     });
 
     const url = `${this.urlApi}?page=${pagina}`;

@@ -1,4 +1,4 @@
-import { Component, Input  } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 
 
@@ -9,9 +9,10 @@ import { Component, Input  } from '@angular/core';
 })
 
 export class CardsComponent {
-  @Input() movies: any[] = [];
+  //los posters que son imagenes
+  @Input() peliculas: any[] = [];
   imagenes: string = 'http://image.tmdb.org/t/p/w500'
 
-   
+
 
 }

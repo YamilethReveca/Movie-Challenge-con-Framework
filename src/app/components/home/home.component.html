@@ -1,11 +1,6 @@
 <app-header></app-header>
 <app-contenedor-filtro-ordenamiento></app-contenedor-filtro-ordenamiento>
-<app-cards [movies]="data"></app-cards>
-<app-paginacion  
-[currentPage]="currentPage"
-[totalPages]="totalPages"
-(pageChange)="changePage($event)"
-></app-paginacion>
+<app-cards [peliculas]="data"></app-cards>
+<app-paginacion [currentPage]="paginaActual" [totalPages]="paginasTotales"
+  (pageChange)="cambioPagina($event)"></app-paginacion>
 <app-footer></app-footer>
-
-
