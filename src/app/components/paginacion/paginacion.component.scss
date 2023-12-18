@@ -1,11 +1,13 @@
-ul,.pagination{
+ul,
+.pagination {
 
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;  
 }
 
-.page-link{
+.page-link {
   width: 100px;
   text-align: center;
 }
