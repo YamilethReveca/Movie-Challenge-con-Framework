@@ -1,19 +1,22 @@
 <section id="Filtro-ordenamiento-centrado">
   <section class="filter-order">
-    <select class="form-select pointer" aria-label="Default select example">
-      <option selected>Filtrar peliculas</option>
-      <option value="Ciencia-Ficción">Ciencia Ficción</option>
-      <option value="Terror">Terror</option>
-      <option value="Romanticas">Romanticas</option>
+    <select class="form-select pointer" aria-label="Default select example" (change)="onGenreChange($event)">
+      <option selected value="">Filtrar peliculas</option>
+      <option value="878">Ciencia Ficción</option>
+      <option value="27">Terror</option>
+      <option value="10749">Romance</option>
     </select>
   </section>
 
   <section class="filter-order">
-    <select class="form-select pointer" aria-label="Default select example">
+    <select class="form-select pointer" aria-label="Default select example" (change)="onSortingChange($event)">
       <option selected>Ordenar peliculas</option>
-      <option value="Tendencia">Tendencia</option>
-      <option value="Taquillera">Taquillera</option>
-      <option value="Reconocimiento">Reconocimiento</option>
+      <option value="popularity.asc">Popularidad ascendente</option>
+      <option value="popularity.desc">Popularidad descendente</option>
+      <option value="revenue.asc">Recaudación ascendente</option>
+      <option value="revenue.desc">Recaudación descendente</option>
+      <option value="primary_release-data.asc">Fecha de estreno ascendente</option>
+      <option value="primary_release-data.desc">Fecha de estreno descendente</option>
     </select>
   </section>
 </section>

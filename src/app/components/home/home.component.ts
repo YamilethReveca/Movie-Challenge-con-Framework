@@ -23,9 +23,11 @@ export class HomeComponent implements OnInit {
   data: Item[] = [];
   paginaActual = 1;
   paginasTotales = 5;
+  selectedGenre: string = '';
+  selectedSorting: string = '';
 
-
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.getData(this.paginaActual);
@@ -37,28 +39,34 @@ export class HomeComponent implements OnInit {
     this.getData(this.paginaActual);
   }
 
+  onGenreChange(selectedGenre: string) {
+    this.selectedGenre = selectedGenre;
+    this.getData(this.paginaActual);
+    // Realiza otras acciones necesarias al cambiar el género
+  }
+
+  onSortingChange(selectedSorting: string) {
+    this.selectedSorting = selectedSorting;
+    this.getData(this.paginaActual);
+    // Realiza otras acciones necesarias al cambiar el ordenamiento
+  }
 
   getData(page: number) {
     const maxPagesToShow = 5;
     if (page > maxPagesToShow || page > this.paginasTotales) {
       return;
     }
-    this.apiService.getData(page).subscribe({
+
+    this.apiService.getData(page, this.selectedGenre, this.selectedSorting).subscribe({
       next: (response: ApiResponse) => {
-        this.data = response.results.map(item => ({
+        this.data = response.results.map((item) => ({
           ...item,
           release_date: new Date(item.release_date),
         }));
-        
       },
       error: (error) => {
         console.error('Error al obtener datos:', error);
-      }
+      },
     });
   }
-
-
 }
-
-
-
