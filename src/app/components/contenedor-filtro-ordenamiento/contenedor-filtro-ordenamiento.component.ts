@@ -14,12 +14,14 @@ export class ContenedorFiltroOrdenamientoComponent {
 
   constructor(private apiService: ApiService, private homeComponent: HomeComponent) { }
 
+
+  // cambio de genero
   onGenreChange(event: any) {
     console.log(event.target.value)
     this.filter.emit(event.target.value);
 
   }
-
+// cambio del ordenamiento
   onSortingChange(event: any) {
 
     console.log(event.target.value)

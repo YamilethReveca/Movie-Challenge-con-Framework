@@ -32,23 +32,23 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getData(this.paginaActual);
   }
-
+//paginacion
   cambioPagina(newPage: number) {
     console.log('Changing page to:', newPage);
     this.paginaActual = newPage;
     this.getData(this.paginaActual);
   }
-
+//filtro
   onGenreChange(selectedGenre: string) {
     this.selectedGenre = selectedGenre;
     this.getData(this.paginaActual);
-    // Realiza otras acciones necesarias al cambiar el género
+    
   }
-
+//ordenamiento
   onSortingChange(selectedSorting: string) {
     this.selectedSorting = selectedSorting;
     this.getData(this.paginaActual);
-    // Realiza otras acciones necesarias al cambiar el ordenamiento
+    
   }
 
   getData(page: number) {

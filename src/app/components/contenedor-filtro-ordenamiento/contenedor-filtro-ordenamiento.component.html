@@ -10,13 +10,13 @@
 
   <section class="filter-order">
     <select class="form-select pointer" aria-label="Default select example" (change)="onSortingChange($event)">
-      <option selected>Ordenar peliculas</option>
+      <option selected value="">Ordenar peliculas</option>
       <option value="popularity.asc">Popularidad ascendente</option>
       <option value="popularity.desc">Popularidad descendente</option>
       <option value="revenue.asc">Recaudación ascendente</option>
       <option value="revenue.desc">Recaudación descendente</option>
-      <option value="primary_release-data.asc">Fecha de estreno ascendente</option>
-      <option value="primary_release-data.desc">Fecha de estreno descendente</option>
+      <option value="primary_release_date.asc">Fecha de estreno ascendente</option>
+      <option value="primary_release_date.desc">Fecha de estreno descendente</option>
     </select>
   </section>
 </section>

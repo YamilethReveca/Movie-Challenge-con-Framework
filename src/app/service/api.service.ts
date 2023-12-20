@@ -1,5 +1,5 @@
 
-import { Injectable, Input} from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
@@ -9,16 +9,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class ApiService {
   private urlApi = " https://api.themoviedb.org/3/discover/movie"
-  private apiKey = ""
-  @Input() peliculas: any[] = [];
-  imagenes: string = 'http://image.tmdb.org/t/p/w500'
+  //private apiKey = "";
   
   constructor(private http: HttpClient) { }
 
   getData(pagina: number, genre?: string, sort?: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-     // Authorization: `Bearer ${this.apiKey}`,
+      //Authorization: `Bearer ${this.apiKey}`,
     });
 
     let params = new HttpParams().set('page', pagina.toString());
