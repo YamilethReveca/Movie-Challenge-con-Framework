@@ -1,5 +1,44 @@
 
 --------
+## 1.2.0 - 2023-12-21
+
+
+### Sprint learnings
+
+En este sprint avance con la segunda historia de usario, donde se solicita poder filtar y ordenar las peliculas donde se realizo de las siguiente manera.
+
+* Se filtra por genero: Romance, Terror(horror) y Ciencia Ficción.
+
+* Se ordena por popularidad, fecha de estreno y recaudación todo de manera ascendente y descendente.
+
+
+### Added
+En esta sección especifica las funcionalides que agregaste.
+
+* Se filtra las peliculas según el genero.
+
+* Se ordena las peliculas según las opciones de popularidad, fecha de estreno y recaudacion.
+
+* La paginación mantiene el filtro y el ordenamiento.
+
+
+### Changed
+En esta sección detalla los cambios que hiciste a funcionalides ya existentes.
+
+* Realice los test unitarios de la primera historia de usuario para poder avanzar a este avance que realice.
+
+### Fixed
+En esta sección describe los _bugs_ solucionados.
+
+ningunos.
+
+### Removed
+En esta sección incluye las funcionalidades eliminadas.
+
+Ninguno.
+
+
+--------
 ## 1.1.0 - 2023-12-13
 
 
