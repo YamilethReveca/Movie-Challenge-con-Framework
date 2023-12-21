@@ -1,9 +1,13 @@
 <section>
-  <ul>
+  <ul>    
     <li class="forma pointer" *ngFor="let item of peliculas">
-      <img [src]="imagenes+item.poster_path" alt="{{item.title}}" />
-      <p class="titulo-Año"> {{ item.title }}</p>
-      <p class="titulo-Año"> {{ item.release_date | date: 'dd-MM-yyyy' }}</p>
+      <p class="parrafo">Titulo: {{ item.title }}</p>
+      <img *ngIf="item.poster_path !== null" [src]="imagenes+item.poster_path" alt="{{item.title}}"/> 
+      <img *ngIf="item.poster_path === null" src="./../../../assets/img/imagen_error_photo.jpg"/> 
+      <p class="parrafo" *ngIf="item.release_date !== ''"> Fecha estreno: {{ item.release_date | date: 'dd-MM-yyyy' }}</p>
+      <p class="parrafo" *ngIf="item.release_date === ''"> Fecha estreno: N/A</p>
+      <p class="parrafo">Popularidad: {{item.popularity}}</p> 
+      <p class="parrafo">Voto promedio: {{item.vote_average}}</p>       
     </li>
   </ul>
 </section>

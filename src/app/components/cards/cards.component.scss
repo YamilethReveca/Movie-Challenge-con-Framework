@@ -25,7 +25,7 @@ ul {
 
 .forma {
   width: 21%;
-  height: 430px;
+  height: auto;
   border: 4px solid blue;
   border-radius: 10px 10px 10px 10px;
   margin-top: 5px;
@@ -49,11 +49,15 @@ img {
 
 }
 
-.titulo-Año {
+
+.parrafo{
+  font-size: 15px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
   color: white;
   text-align: center;
-}
+  margin-top: 5px;
 
+
+}
 .pointer {cursor: pointer;}

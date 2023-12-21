@@ -1,5 +1,5 @@
 
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class ApiService {
   private urlApi = " https://api.themoviedb.org/3/discover/movie"
   //private apiKey = "";
-  
+
   constructor(private http: HttpClient) { }
 
   getData(pagina: number, genre?: string, sort?: string): Observable<any> {
@@ -20,11 +20,11 @@ export class ApiService {
     });
 
     let params = new HttpParams().set('page', pagina.toString());
-// filtro
+    // filtro
     if (genre) {
       params = params.set('with_genres', genre);
     }
-//ordenamiento    
+    //ordenamiento    
     if (sort) {
       params = params.set('sort_by', sort);
     }
