@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
-//import { PeliculasDetallesComponent } from './components/peliculas-detalles/peliculas-detalles.component';
+import { PeliculasDetallesComponent } from './components/peliculas-detalles/peliculas-detalles.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PaginacionComponent } from './components/paginacion/paginacion.component';
 import { ContenedorFiltroOrdenamientoComponent } from './components/contenedor-filtro-ordenamiento/contenedor-filtro-ordenamiento.component';
@@ -17,7 +17,7 @@ import { CardsComponent } from './components/cards/cards.component';
     AppComponent,   
     HomeComponent,
     FooterComponent,
-   // PeliculasDetallesComponent,
+    PeliculasDetallesComponent,
     HeaderComponent,  
     PaginacionComponent,
     ContenedorFiltroOrdenamientoComponent,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
+import { Router } from '@angular/router'; // Importa el Router
 
 interface ApiResponse {
   results: Item[];
@@ -8,6 +9,7 @@ interface ApiResponse {
 
 // item para obtener de la api el poster,la fecha y el titulo
 interface Item {
+  id: number;
   poster_path: string;
   release_date: string;
   title: string;
@@ -29,7 +31,11 @@ export class HomeComponent implements OnInit {
   selectedSorting: string = '';
 
   constructor(
-    private apiService: ApiService) { }
+    private apiService: ApiService,
+    private router: Router // Inyecta el Router
+    ) 
+    
+    { }
 
   ngOnInit(): void {
     this.getData(this.paginaActual);
@@ -54,6 +60,15 @@ export class HomeComponent implements OnInit {
     this.getData(this.paginaActual);    
   }
 
+
+  // detalles
+
+  onDetallesClick(id: number) {
+    console.log('Detalles clicked for ID:', id);
+    // Aquí puedes realizar cualquier acción necesaria al hacer clic en detalles
+    this.router.navigate(['/detalles', id]);
+  }
+
   getData(page: number) {
     const maxPagesToShow = 5;
     if (page > maxPagesToShow || page > this.paginasTotales) {
@@ -63,7 +78,13 @@ export class HomeComponent implements OnInit {
     this.apiService.getData(page, this.selectedGenre, this.selectedSorting).subscribe({
       next: (response: ApiResponse) => {
         this.data = response.results.map((item) => ({
-          ...item
+          id: item.id,
+          poster_path: item.poster_path,
+          release_date: item.release_date,
+          title: item.title,
+          popularity: item.popularity,
+          vote_average: item.vote_average,
+          // Otras propiedades según la respuesta real de la API
         }));
       },
       error: (error) => {
