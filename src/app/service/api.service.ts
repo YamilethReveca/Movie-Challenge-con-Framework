@@ -9,11 +9,11 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class ApiService {
   private urlApi = " https://api.themoviedb.org/3/discover/movie"
-  //private apiKey = "";
+  //private apiKey = "
 
   constructor(private http: HttpClient) { }
 
-  getData(pagina: number, genre?: string, sort?: string): Observable<any> {
+  getData(pagina: number, genre: string, sort: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       //Authorization: `Bearer ${this.apiKey}`,
@@ -31,6 +31,10 @@ export class ApiService {
     const url = `${this.urlApi}`;
 
     return this.http.get<any>(url, { headers, params });
+  }
+
+  getDetallesPelicula(id: number): Observable<any> {
+    return this.http.get(`${this.urlApi}/detalles/${id}`);
   }
 }
 

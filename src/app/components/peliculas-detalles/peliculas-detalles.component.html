@@ -1,1 +1,8 @@
-<p>peliculas-detalles works!</p>
+<section *ngIf="peliculas && peliculas.length > 0">
+  <h2>{{ peliculas[0].title }}</h2>
+  <img *ngIf="peliculas[0].poster_path !== null" [src]="imagenes + peliculas[0].poster_path" alt="{{ peliculas[0].title }}" />
+  <img *ngIf="peliculas[0].poster_path === null" src="./../../../assets/img/imagen_error_photo.jpg" />
+  <p *ngIf="peliculas[0].release_date; else noReleaseDate">Fecha de estreno: {{ peliculas[0].release_date | date: 'dd-MM-yyyy' }}</p>
+  <ng-template #noReleaseDate>Fecha de estreno: N/A</ng-template>
+  <p>Voto promedio: {{ peliculas[0].vote_average }}</p>
+</section>

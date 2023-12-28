@@ -3,6 +3,7 @@
   (filter)="onGenreChange($event)" (sort)="onSortingChange($event)">
 </app-contenedor-filtro-ordenamiento>
 <app-cards [peliculas]="data"></app-cards>
+<app-peliculas-detalles *ngIf="data && data.length > 0" [peliculas]="data" (detalles)="onDetallesClick($event)"></app-peliculas-detalles>
 <app-paginacion [currentPage]="paginaActual" [totalPages]="paginasTotales"
   (pageChange)="cambioPagina($event)"></app-paginacion>
 <app-footer></app-footer>
