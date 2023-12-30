@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/service/api.service';
 
 @Component({
@@ -8,24 +8,18 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./peliculas-detalles.component.scss']
 })
 export class PeliculasDetallesComponent implements OnInit {
-
-  @Input() peliculas: any[] = [];
-  @Output() detalles = new EventEmitter<number>();
   peliculaDetalles: any;
   imagenes: string = 'http://image.tmdb.org/t/p/w500';
 
-  constructor(private router: Router,  private apiService: ApiService ) { }
+  constructor(private route: ActivatedRoute,  private apiService: ApiService ) { }
 
-
-  ngOnInit(): void {}
-
-  // ngOnInit()  {   
-  //     this.route.params.subscribe(params => {
-  //       const id = params['id'];
-  //       console.log('ID de la ruta:', id);
-  //       this.cargarDetallesPelicula(id);
-  //   });
-  // }
+  ngOnInit()  {
+      this.route.params.subscribe(params => {
+        const id = params['id'];
+        console.log('ID de la ruta:', id);
+        this.cargarDetallesPelicula(id);
+    });
+  }
 
   cargarDetallesPelicula(id: number) {
     this.apiService.getDetallesPelicula(id).subscribe(
@@ -39,8 +33,5 @@ export class PeliculasDetallesComponent implements OnInit {
     );
   }
 
-  verDetalles(id: number) {
-    this.detalles.emit(id);
-    this.router.navigate(['/detalles', id])
-  }
+  
 }

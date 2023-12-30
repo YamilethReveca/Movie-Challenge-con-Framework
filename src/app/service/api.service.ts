@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 })
 
 export class ApiService {
-  private urlApi = " https://api.themoviedb.org/3/discover/movie"
+  private urlApi = "https://api.themoviedb.org/3"
   //private apiKey = "
 
   constructor(private http: HttpClient) { }
@@ -28,13 +28,17 @@ export class ApiService {
     if (sort) {
       params = params.set('sort_by', sort);
     }
-    const url = `${this.urlApi}`;
+    const url = `${this.urlApi}/discover/movie`;
 
     return this.http.get<any>(url, { headers, params });
   }
 
   getDetallesPelicula(id: number): Observable<any> {
-    return this.http.get(`${this.urlApi}/detalles/${id}`);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      //Authorization: `Bearer ${this.apiKey}`,
+    });
+    return this.http.get(`${this.urlApi}/movie/${id}`, { headers });
   }
 }
 

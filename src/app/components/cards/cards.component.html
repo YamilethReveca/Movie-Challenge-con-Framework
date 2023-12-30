@@ -1,6 +1,6 @@
 <section>
   <ul>    
-    <li class="forma pointer" *ngFor="let item of peliculas">
+    <li class="forma pointer" *ngFor="let item of peliculas" (click)="onDetallesClick(item.id)">
       <p class="parrafo">Titulo: {{ item.title }}</p>
       <img *ngIf="item.poster_path !== null" [src]="imagenes+item.poster_path" alt="{{item.title}}"/>
       <img *ngIf="item.poster_path === null" src="./../../../assets/img/imagen_error_photo.jpg"/>  
