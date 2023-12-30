@@ -61,13 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  // detalles
-
-  onDetallesClick(id: number) {
-    console.log('Detalles clicked for ID:', id);
-    // Aquí puedes realizar cualquier acción necesaria al hacer clic en detalles
-    this.router.navigate(['/detalles', id]);
-  }
+ 
 
   getData(page: number) {
     const maxPagesToShow = 5;
