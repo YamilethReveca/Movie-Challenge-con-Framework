@@ -1,3 +1,36 @@
+--------
+## 1.3.0 - 2024-01-03
+
+
+### Sprint learnings
+
+En este sprint avance con la tercera historia de usuario, donde se solicita poder ver el detalle de la pelicula seleccionada. Quedando pendiente los test y que cuando vaya hacia atras mantenga el filtro y el ordenamiento.
+
+### Added
+
+En esta sección especifica las funcionalides que agregaste.
+
+* Uso del endpoint /movie/{movie-id} para el detalle de la pelicula seleccionada.
+
+### Changed
+
+En esta sección detalla los cambios que hiciste a funcionalides ya existentes.
+
+Ninguno.
+
+### Fixed
+
+En esta sección describe los _bugs_ solucionados.
+
+ninguno.
+
+### Removed
+
+En esta sección incluye las funcionalidades eliminadas.
+
+Ninguno.
+
+
 
 --------
 ## 1.2.0 - 2023-12-21
