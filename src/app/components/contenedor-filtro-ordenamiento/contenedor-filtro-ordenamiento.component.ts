@@ -6,22 +6,18 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./contenedor-filtro-ordenamiento.component.scss']
 })
 export class ContenedorFiltroOrdenamientoComponent {
+
   @Output() filter = new EventEmitter<string>();
   @Output() sort = new EventEmitter<string>();
 
   constructor() { }
 
-
   // cambio de genero
-  onGenreChange(event: any) {
-    
+  onGenreChange(event: any) {    
     this.filter.emit(event.target.value);
-
   }
 // cambio del ordenamiento
-  onSortingChange(event: any) {
-
-    
+  onSortingChange(event: any) {    
     this.sort.emit(event.target.value);
   }
 }

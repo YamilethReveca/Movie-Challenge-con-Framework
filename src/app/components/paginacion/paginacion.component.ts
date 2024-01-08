@@ -1,16 +1,19 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
+
 
 @Component({
   selector: 'app-paginacion',
   templateUrl: './paginacion.component.html',
   styleUrls: ['./paginacion.component.scss']
 })
-export class PaginacionComponent {
+export class PaginacionComponent  {
 
 
   @Input() currentPage: number = 1;
   @Input() totalPages: number = 5;
   @Output() pageChange = new EventEmitter<number>();
+
+ 
 
   // pagina anterior , va a echar para atras 
 
@@ -29,6 +32,9 @@ export class PaginacionComponent {
   cambioPagina(newPage: number) {
     this.pageChange.emit(newPage);
   }
+
+
+
 }
 
 
