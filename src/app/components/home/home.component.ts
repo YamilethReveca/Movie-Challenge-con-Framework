@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';// importar la api
+import { Router } from '@angular/router';
 
 
 
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
   //inyectamos el servicio 
   constructor(
     private apiService: ApiService,
+    private router: Router // Inyecta el Router
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +53,18 @@ export class HomeComponent implements OnInit {
   cambioPagina(newPage: number) {
     console.log('Cambiando de pagina a:', newPage);
     this.paginaActual = newPage;
+    let queryParams: any = {}; // variable de objeto vacio
+    if (this.selectedGenre != "") {  // condicional filtro sino es un string vacio
+      queryParams.genre = this.selectedGenre;  //parametro de url del genero seleccionado
+    }
+    if (this.selectedSorting != "") { 
+      queryParams.sortby = this.selectedSorting;
+    }
+    queryParams.page= this.paginaActual; // parametro de url de la pagina seleccionada
+
+    this.router.navigate(["/"], { queryParams });//  la ruta de navegacion de lo seleccionado
+
+
     this.getData(this.paginaActual);
   }
 
@@ -58,6 +72,17 @@ export class HomeComponent implements OnInit {
   // Método para cambiar el género.
   onGenreChange(selectedGenre: string) {
     this.selectedGenre = selectedGenre;
+
+    let queryParams: any = {}; // variable de objeto vacio
+    if (this.selectedGenre != "") {  // condicional filtro sino es un string vacio
+      queryParams.genre = this.selectedGenre;  //parametro de url del genero seleccionado
+    }
+    if (this.selectedSorting != "") { 
+      queryParams.sortby = this.selectedSorting;
+    }
+    queryParams.page= this.paginaActual; // parametro de url de la pagina seleccionada
+
+    this.router.navigate(["/"], { queryParams });//  la ruta de navegacion de lo seleccionado
     this.getData(this.paginaActual);
   }
 
@@ -65,6 +90,18 @@ export class HomeComponent implements OnInit {
   // Método para cambiar el método de ordenamiento.
   onSortingChange(selectedSorting: string) {
     this.selectedSorting = selectedSorting;
+
+    let queryParams: any = {};
+    if (this.selectedSorting != "") {
+      queryParams.sortby = this.selectedSorting;
+
+    }
+
+    if (this.selectedGenre != "") {
+      queryParams.genre = this.selectedGenre;
+    }
+    queryParams.page= this.paginaActual;
+    this.router.navigate(["/"], { queryParams });
     this.getData(this.paginaActual);
   }
 

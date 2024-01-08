@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class ApiService {
   private urlApi = "https://api.themoviedb.org/3"
-  private apiKey = "";
+  //private apiKey = "";
 
   constructor(private http: HttpClient) { }
 

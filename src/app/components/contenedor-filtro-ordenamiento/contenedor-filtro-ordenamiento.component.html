@@ -1,7 +1,7 @@
 <section id="Filtro-ordenamiento-centrado">
   <section class="filter-order">
     <select class="form-select pointer" aria-label="Default select example" (change)="onGenreChange($event)">
-      <option selected value="">Filtrar peliculas</option>      
+      <option selected value="">Filter by genres</option>      
       <option value="28">Acción</option>
       <option value="12">Aventura</option>
       <option value="16">Animación</option>
@@ -19,11 +19,11 @@
 
   <section class="filter-order">
     <select class="form-select pointer" aria-label="Default select example" (change)="onSortingChange($event)">
-      <option selected value="">Ordenar peliculas</option>
+      <option selected value="">Sort by</option>
       <option value="popularity.asc">Popularidad ascendente</option>
       <option value="popularity.desc">Popularidad descendente</option>
       <option value="vote_average.asc">Votación promedio ascendente</option>
-      <option value="vote_average..desc">Votación promedio descendente</option>
+      <option value="vote_average.desc">Votación promedio descendente</option>
       <option value="primary_release_date.asc">Fecha de estreno ascendente</option>
       <option value="primary_release_date.desc">Fecha de estreno descendente</option>
     </select>

@@ -1,12 +1,12 @@
 <section>
   <ul>    
     <li class="forma pointer" *ngFor="let item of peliculas" (click)="onDetallesClick(item.id)">
-      <p class="parrafo">Titulo: {{ item.title }}</p>
       <img *ngIf="item.poster_path !== null" [src]="imagenes+item.poster_path" alt="{{item.title}}"/>
       <img *ngIf="item.poster_path === null" src="./../../../assets/img/imagen_error_photo.jpg"/>  
-      <p class="parrafo" *ngIf="item.release_date !== ''"> Fecha estreno: {{ item.release_date | date: 'dd-MM-yyyy' }}</p>
-      <p class="parrafo">Popularidad: {{item.popularity}}</p>
-      <p class="parrafo">Voto promedio: {{item.vote_average}}</p>     
+      <p id= "titulo" class="parrafo">{{ item.title }}</p>
+      <p class="parrafo" *ngIf="item.release_date !== ''"> Release date: {{ item.release_date | date: 'dd-MM-yyyy' }}</p>
+      <p class="parrafo">Popularity: {{item.popularity}}</p>
+      <p class="parrafo">Vote average: {{item.vote_average}}</p>     
     </li>
   </ul>
 </section>
