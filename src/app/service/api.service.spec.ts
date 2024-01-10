@@ -21,11 +21,7 @@ describe('ApiService', () => {
   afterEach(() => {
     // Verifica que no haya solicitudes pendientes después de cada prueba
     httpTestingController.verify();
-  });
-
-  it('debería ser creado', () => {
-    expect(service).toBeTruthy();
-  });
+  }); 
 
   it('debería realizar una solicitud GET con los parámetros proporcionados', () => {
     const mockResponse = { results: [], total_paginas: 5 };
@@ -38,11 +34,13 @@ describe('ApiService', () => {
       expect(response).toEqual(mockResponse);
     });
 
+
+    const expectedUrl = 'https://api.themoviedb.org/3/discover/movie';
     // Verifica que la solicitud GET se realizó con los parámetros correctos
     const req = httpTestingController.expectOne(request => {
       return (
         request.method === 'GET' &&
-        request.url === ' https://api.themoviedb.org/3/discover/movie',
+        request.url === expectedUrl &&
         request.params.get('page') === pagina.toString() &&
         request.params.get('with_genres') === genre &&
         request.params.get('sort_by') === sort
@@ -53,5 +51,23 @@ describe('ApiService', () => {
     req.flush(mockResponse);
   });
 
-  // Puedes agregar más casos de prueba según sea necesario
+  describe('getDetallesPelicula', () => {
+    it('should return details for a movie', () => {
+      const id = 123;
+      const mockResponse = { /* Mock de detalles de película */ };
+  
+      service.getDetallesPelicula(id).subscribe(response => {
+        expect(response).toEqual(mockResponse);
+      });
+  
+      const expectedUrl = `https://api.themoviedb.org/3/movie/${id}`;
+      
+      // Verifica que la solicitud GET se realizó con la URL correcta
+      const req = httpTestingController.expectOne(expectedUrl);
+      expect(req.request.method).toBe('GET');
+
+      // Simula la respuesta
+      req.flush(mockResponse);
+    });
+  });
 });

@@ -1,20 +1,23 @@
 <app-header></app-header>
 <section>
-  <div>   
+  <div>
     <img *ngIf="peliculaDetalles.poster_path !== null" [src]="imagenes + peliculaDetalles.poster_path"
-    alt="{{ peliculaDetalles.title }}" />
+      alt="{{ peliculaDetalles.title }}" />
     <img *ngIf="peliculaDetalles.poster_path === null" src="./../../../assets/img/imagen_error_photo.jpg" />
   </div>
   <div>
     <h2 id="titulo">Title: {{ peliculaDetalles.original_title }}</h2>
     <p>Genre: {{ peliculaDetalles.genres[0].name }}</p>
     <p *ngIf="peliculaDetalles.release_date; else noReleaseDate">Release date: {{ peliculaDetalles.release_date |
-      date: 'dd-MM-yyyy' }}</p>
+      date: 'yyyy-MM-dd' }}</p>
     <ng-template #noReleaseDate>Fecha de estreno: N/A</ng-template>
     <p>Vote average: {{ peliculaDetalles.vote_average }}</p>
     <p>Vote count: {{peliculaDetalles.vote_count}}</p>
-    <p *ngIf="peliculaDetalles.overview; else noOverview" style="word-wrap: break-word; max-width: 1900px"> Description: {{ peliculaDetalles.overview }}</p>
-    <ng-template #noOverview><p>Description: N/A</p></ng-template>
+    <p *ngIf="peliculaDetalles.overview; else noOverview" style="word-wrap: break-word; max-width: 1900px"> Description:
+      {{ peliculaDetalles.overview }}</p>
+    <ng-template #noOverview>
+      <p>Description: N/A</p>
+    </ng-template>
   </div>
 </section>
 <app-footer></app-footer>

@@ -2,14 +2,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ApiService {
-  private urlApi = "https://api.themoviedb.org/3"
-  //private apiKey = "";
+  private urlApi = environment.URLAPI;
+  private apiKey = environment.APIKEY;
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +19,7 @@ export class ApiService {
   getData(pagina: number, genre: string, sort: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      //Authorization: `Bearer ${this.apiKey}`,
+      Authorization: `Bearer ${this.apiKey}`,
     });
 
     // Configuración de los parámetros de la solicitud
@@ -37,7 +38,8 @@ export class ApiService {
     // Realización de la solicitud GET con las cabeceras y parámetros configurados
     return this.http.get<any>(url, { headers, params });
   }
-// Método que realiza una solicitud GET para obtener detalles de una película por su ID
+
+  // Método que realiza una solicitud GET para obtener detalles de una película por su ID
   getDetallesPelicula(id: number): Observable<any> {
 
    

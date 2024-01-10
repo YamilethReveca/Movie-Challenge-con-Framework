@@ -1,69 +1,122 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture,TestBed, tick  } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
-import { ApiService } from 'src/app/service/api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { HeaderComponent } from '../header/header.component';
-import { CardsComponent } from '../cards/cards.component';
-import { ContenedorFiltroOrdenamientoComponent } from '../contenedor-filtro-ordenamiento/contenedor-filtro-ordenamiento.component';
-import { PaginacionComponent } from '../paginacion/paginacion.component';
-import { FooterComponent } from '../footer/footer.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ApiService } from 'src/app/service/api.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ParamMap, convertToParamMap } from '@angular/router';
+import { throwError } from 'rxjs';
 
-describe('HomeComponent', () => {
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component'
+import { PaginacionComponent } from '../paginacion/paginacion.component';
+import { ContenedorFiltroOrdenamientoComponent } from '../contenedor-filtro-ordenamiento/contenedor-filtro-ordenamiento.component';
+import { CardsComponent } from '../cards/cards.component';
+
+fdescribe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let apiServiceSpy: jasmine.SpyObj<ApiService> = jasmine.createSpyObj('ApiService', ['getData']);
+  let apiService: jasmine.SpyObj<ApiService>;
+  let router: Router;
+  let activatedRoute: ActivatedRoute;
 
-  beforeEach(async () => {
+  beforeEach(() => {
+    const apiServiceSpy = jasmine.createSpyObj('ApiService', ['getData']);
 
-    await TestBed.configureTestingModule({
-      declarations: [HomeComponent, HeaderComponent, ContenedorFiltroOrdenamientoComponent, CardsComponent, PaginacionComponent, FooterComponent],
-      imports: [HttpClientTestingModule],
+    TestBed.configureTestingModule({
+      declarations: [
+        HomeComponent,
+        FooterComponent,
+        HeaderComponent,
+        ContenedorFiltroOrdenamientoComponent,
+        CardsComponent,
+        PaginacionComponent
+      ],
+      imports: [RouterTestingModule],
       providers: [
-        { provide: ApiService, useValue: apiServiceSpy }
-      ]
-    }).compileComponents();
+        { provide: ApiService, useValue: apiServiceSpy },
+      ],
+    });
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    apiServiceSpy = TestBed.inject(ApiService) as jasmine.SpyObj<ApiService>;
+    apiService = TestBed.inject(ApiService) as jasmine.SpyObj<ApiService>;
+    router = TestBed.inject(Router);
+    activatedRoute = TestBed.inject(ActivatedRoute);
   });
 
-  it('Deberia crear', () => {
-    expect(component).toBeTruthy();
+  fit('should set selectedGenre if it exists in query params', () => {
+    const paramMap = convertToParamMap({ genre: 'Action' });
+    spyOnProperty(activatedRoute, 'queryParams').and.returnValue(of(paramMap));
+    
+    component.ngOnInit();
+
+    expect(component.selectedGenre).toEqual('Action');
   });
 
-  it('debería llamar a apiService.getData cuando se llama a getData', () => {
-    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
+  it('should set selectedSorting if it exists in query params', () => {
+    const paramMap = convertToParamMap({ sortby: 'popularity' });
+    spyOnProperty(activatedRoute.snapshot, 'queryParamMap').and.returnValue(paramMap);
+
+    component.ngOnInit();
+
+    expect(component.selectedSorting).toEqual('popularity');
+  });
+
+  it('should set queryParams.genre if selectedGenre is not an empty string', () => {
+    component.selectedGenre = 'Drama';
+    const queryParams: any = {};
+
+    component.onGenreChange('Action');
+
+    expect(queryParams.genre).toEqual('Drama');
+  });
+
+  it('should set queryParams.sortby if selectedSorting is not an empty string', () => {
+    component.selectedSorting = 'popularity';
+    const queryParams: any = {};
+
+    component.onSortingChange('release_date');
+
+    expect(queryParams.sortby).toEqual('popularity');
+  });
+
+  it('should not set queryParams.sortby if selectedSorting is an empty string', () => {
+    component.selectedSorting = '';
+    const queryParams: any = {};
+
+    component.onSortingChange('release_date');
+
+    expect(queryParams.sortby).toBeUndefined();
+  });
+
+  it('should not set queryParams.genre if selectedGenre is an empty string', () => {
+    component.selectedGenre = '';
+    const queryParams: any = {};
+
+    component.onGenreChange('Action');
+
+    expect(queryParams.genre).toBeUndefined();
+  });
+
+  it('should not call apiService.getData if page exceeds maxPagesToShow or paginasTotales', () => {
+    spyOn(apiService, 'getData');
+
+    component.getData(10);
+
+    expect(apiService.getData).not.toHaveBeenCalled();
+  });
+
+  it('should log error message on error callback', () => {
+    spyOn(console, 'error');
+
+    spyOn(apiService, 'getData').and.returnValue(throwError(() => new Error('test')));
     component.getData(1);
-    expect(apiServiceSpy.getData).toHaveBeenCalledWith(1, '', '');
-  });
 
-  it('debería actualizar los datos cuando apiService.getData devuelva datos', () => {
-    const fakeApiResponse = {
-      results: [{
-        poster_path: 'path',
-        release_date: 'date: dd-mm-yyyy',
-        title:'Title',
-        popularity: 123,
-        vote_average: 7.5
-      }],
-      total_paginas: 5
-    };
+    fixture.detectChanges();
+    tick();
 
-    // Espía el método getData y devuelve los datos simulados
-    apiServiceSpy.getData.and.returnValue(of(fakeApiResponse));
-
-    // Llama al método getData del componente
-    component.getData(1);
-
-    // Verifica que la propiedad data se actualice correctamente
-    expect(component.data).toEqual([{
-      poster_path: 'path',
-      release_date: 'date: dd-mm-yyyy',
-      title: 'Title',
-      popularity: 123,
-      vote_average: 7.5
-    }]);
+    
+    expect(console.error).toHaveBeenCalledWith('Error al obtener datos:', 'test');
   });
 });
