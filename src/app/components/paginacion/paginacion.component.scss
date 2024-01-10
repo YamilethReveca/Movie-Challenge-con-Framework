@@ -1,13 +1,23 @@
-ul,
+
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;  
   background-color: rgb(12, 10, 10);
+  
 }
 
 .page-link {
   width: 100px;
   text-align: center;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+a{
+
+  font-size: 17px;
 }

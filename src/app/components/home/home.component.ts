@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';// importar la api
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
-
-// Define una interfaz ApiResponse para estructurar el formato de respuesta de la API.
+// interfaz ApiResponse para estructurar el formato de respuesta de la API.
 
 interface ApiResponse {
   results: Item[];
   total_paginas: number;
 }
 
-// Define una interfaz Item para representar la estructura de un elemento obtenido de la API.
+//  interfaz Item para representar la estructura de un elemento obtenido de la API.
 
 interface Item {
   id: number;
@@ -37,15 +37,38 @@ export class HomeComponent implements OnInit {
   paginasTotales: number = 5;
   selectedGenre: string = '';
   selectedSorting: string = '';
+  @Output() filter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() sort: EventEmitter<string> = new EventEmitter<string>();
 
   //inyectamos el servicio 
   constructor(
     private apiService: ApiService,
-    private router: Router // Inyecta el Router
+    private router: Router, // Inyecta el Router
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getData(this.paginaActual);
+
+    // ir hacia atras
+    this.route.queryParams.subscribe(params => {
+      this.selectedGenre = params['genre'];
+
+      if (params['genre'] !== undefined) {
+
+        this.selectedGenre = params['genre'];
+
+      }
+      this.selectedSorting = params['sortby'];
+
+      if (params['sortby'] !== undefined) {
+
+        this.selectedSorting = params['sortby'];
+      }
+
+
+      const page = +params['page'] || 1;
+      this.getData(page);
+    })
   }
 
   //pagina
@@ -54,44 +77,67 @@ export class HomeComponent implements OnInit {
     console.log('Cambiando de pagina a:', newPage);
     this.paginaActual = newPage;
     let queryParams: any = {}; // variable de objeto vacio
-    if (this.selectedGenre != "") {  // condicional filtro sino es un string vacio
+    if (this.selectedGenre !== "") {  // condicional filtro sino es un string vacio
       queryParams.genre = this.selectedGenre;  //parametro de url del genero seleccionado
     }
-    if (this.selectedSorting != "") { 
+    if (this.selectedSorting !== "") {
       queryParams.sortby = this.selectedSorting;
     }
-    queryParams.page= this.paginaActual; // parametro de url de la pagina seleccionada
-
+    queryParams.page = this.paginaActual; // parametro de url de la pagina seleccionada
     this.router.navigate(["/"], { queryParams });//  la ruta de navegacion de lo seleccionado
-
-
     this.getData(this.paginaActual);
+
+    //ir hacia atras
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge'
+    });
+
   }
 
   //filtro
   // Método para cambiar el género.
   onGenreChange(selectedGenre: string) {
+
+    this.selectedGenre = selectedGenre;
+    this.filter.emit(selectedGenre);  // Asegúrate de tener un EventEmitter para 'filter'
+    this.getData(this.paginaActual);
+
     this.selectedGenre = selectedGenre;
 
     let queryParams: any = {}; // variable de objeto vacio
     if (this.selectedGenre != "") {  // condicional filtro sino es un string vacio
       queryParams.genre = this.selectedGenre;  //parametro de url del genero seleccionado
     }
-    if (this.selectedSorting != "") { 
+    if (this.selectedSorting != "") {
       queryParams.sortby = this.selectedSorting;
     }
-    queryParams.page= this.paginaActual; // parametro de url de la pagina seleccionada
+    queryParams.page = this.paginaActual; // parametro de url de la pagina seleccionada
 
     this.router.navigate(["/"], { queryParams });//  la ruta de navegacion de lo seleccionado
     this.getData(this.paginaActual);
+
+    // ir hacia atras
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge'
+    });
+
   }
 
   //ordenamiento
   // Método para cambiar el método de ordenamiento.
   onSortingChange(selectedSorting: string) {
     this.selectedSorting = selectedSorting;
+    this.sort.emit(selectedSorting);  // Asegúrate de tener un EventEmitter para 'sort'
+    this.getData(this.paginaActual);
+
+    this.selectedSorting = selectedSorting;
 
     let queryParams: any = {};
+
     if (this.selectedSorting != "") {
       queryParams.sortby = this.selectedSorting;
 
@@ -100,9 +146,17 @@ export class HomeComponent implements OnInit {
     if (this.selectedGenre != "") {
       queryParams.genre = this.selectedGenre;
     }
-    queryParams.page= this.paginaActual;
+    queryParams.page = this.paginaActual;
     this.router.navigate(["/"], { queryParams });
     this.getData(this.paginaActual);
+
+
+    // ir hacia atras
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
 
   // Método para obtener datos de la API. Metodo Get.

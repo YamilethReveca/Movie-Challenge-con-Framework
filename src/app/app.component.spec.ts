@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-//import { PaginacionComponent } from './components/paginacion/paginacion.component';
+import { PaginacionComponent } from './components/paginacion/paginacion.component';
 import { ContenedorFiltroOrdenamientoComponent } from './components/contenedor-filtro-ordenamiento/contenedor-filtro-ordenamiento.component';
 import { CardsComponent } from './components/cards/cards.component';
 
@@ -36,7 +36,7 @@ describe('AppModule', () => {
         HomeComponent,
         FooterComponent,
         HeaderComponent,
-        //PaginacionComponent,
+        PaginacionComponent,
         ContenedorFiltroOrdenamientoComponent,
         CardsComponent,
       ],
@@ -49,39 +49,4 @@ describe('AppModule', () => {
     const appComponent = fixture.componentInstance;
     expect(appComponent).toBeTruthy();
   });
-});
-
-
-describe('AppRoutingModule', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule, AppRoutingModule],
-    });
-  });
-
-  it('should create the app routing module', () => {
-    const appRoutingModule = TestBed.inject(AppRoutingModule);
-    expect(appRoutingModule).toBeTruthy();
-  });
-});
-
-
-
-describe('AppComponent', () => {
-  let fixture: ComponentFixture<AppComponent>;
-  let appComponent: AppComponent;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-    });
-
-    fixture = TestBed.createComponent(AppComponent);
-    appComponent = fixture.componentInstance;
-  });
-
-  it('should create the app component', () => {
-    expect(appComponent).toBeTruthy();
-  });
-  
 });

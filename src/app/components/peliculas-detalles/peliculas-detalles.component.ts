@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/service/api.service';
-import { Location } from '@angular/common'; // Importa Location
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-peliculas-detalles',
@@ -14,14 +14,14 @@ export class PeliculasDetallesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location, // Inyecta Location  
-    private apiService: ApiService ) { }
+    private location: Location,
+    private apiService: ApiService) { }
 
-  ngOnInit()  {
-      this.route.params.subscribe(params => {
-        const id = params['id'];
-        console.log('ID de la ruta:', id);
-        this.cargarDetallesPelicula(id);
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      console.log('ID de la ruta:', id);
+      this.cargarDetallesPelicula(id);
     });
   }
 
@@ -29,7 +29,7 @@ export class PeliculasDetallesComponent implements OnInit {
     this.apiService.getDetallesPelicula(id).subscribe(
       (detalles: any) => {
         this.peliculaDetalles = detalles;
-        // Puedes agregar más lógica aquí según los detalles recibidos
+
       },
       (error) => {
         console.error('Error al cargar detalles:', error);
@@ -37,5 +37,4 @@ export class PeliculasDetallesComponent implements OnInit {
     );
   }
 
- 
 }

@@ -1,10 +1,10 @@
 --------
-## 1.3.0 - 2024-01-03
+## 1.4.0 - 2024-01-10
 
 
 ### Sprint learnings
 
-En este sprint avance con la tercera historia de usuario, donde se solicita poder ver el detalle de la pelicula seleccionada. Quedando pendiente los test y que cuando vaya hacia atras mantenga el filtro y el ordenamiento.
+Realice unos cambios visual ,este sprint avance con la tercera historia de usuario, donde se solicita poder ver el detalle de la pelicula seleccionada. Quedando pendiente un test del componente home y parte del readme.
 
 ### Added
 
@@ -14,7 +14,7 @@ En esta sección especifica las funcionalides que agregaste.
 
 ### Changed
 
-En esta sección detalla los cambios que hiciste a funcionalides ya existentes.
+Cambie el fondo del home, y el color de la seccion de las peliculas, también el detalle pelicula lo coloque mas grande para que ocupe toda la página.
 
 Ninguno.
 
@@ -29,10 +29,8 @@ ninguno.
 En esta sección incluye las funcionalidades eliminadas.
 
 Ninguno.
-
-
-
 --------
+
 ## 1.2.0 - 2023-12-21
 
 
