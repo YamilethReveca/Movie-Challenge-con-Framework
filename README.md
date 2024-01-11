@@ -89,25 +89,45 @@ El componente de detalle de película en CinemaHome ofrece a los usuarios una ex
 ![prototipo figma](/src/assets/img/prototipo%20de%20baja%20fidelidad%20figma.png)
 ![prototipo figma](/src/assets/img/prototipo%20de%20baja%20fidelidad%20detalle.png)
 
-
+Este fue el diseño que se habia realizado en un principio , la cual se le cambió el color para darle un estilo muy parecido al cine, siendo más atractivo para el usuario.
 
 ## 6. Funcionalidades
 
+Este proyecto esta realizado por 7 componentes y un servicio, las cuales permite tener cada información segmentada. 
 
+Entre los componente tenemos: 
+
+* Header.
+* Home.
+* Contenedor-filtro-ordenamiento.
+* Cards.
+* Paginacion. 
+* Footer.
+* Peliculas-detalles
+
+Servicio:
+
+Tenemos un servicio llamado apiService y esta nos permite hacer las peticiones HTTP para las peliculas.
 
 
 ## 7. Consideraciones técnicas
 
+Se uso el endpoint themoviedb discover / movie, https://api.themoviedb.org/3/discover/movie para las peliculas y asi también obtener el ordenamiento de las peliculas, sea por popularidad ascendente y descendente, votación promedio ascendente y descendente y total votación ascendente y descendente.
+Para el fitro se uso el endpoint genres/ movie list , https://api.themoviedb.org/3/genre/movie/list y asi obteniendo el id del genero.
 
-
+En el peliculas-detalles se uso el endpoint movies / details, 
+https://api.themoviedb.org/3/movie/{movie_id} .
 
 
 ## 8. ApiKey
 
+Para hacer las solicitudes de las peliculas fue requerido del themoviedb un apiKey para las peticiones.
 
 
 
 ## 9. Prueba unitarias y Test
+
+en un entorno de Angular utilizando el framework de pruebas Jasmine y TestBed.
 
 
 

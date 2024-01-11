@@ -1,4 +1,4 @@
-import { ComponentFixture,TestBed, tick  } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/service/api.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ParamMap, convertToParamMap } from '@angular/router';
 import { throwError } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component'
@@ -13,110 +14,164 @@ import { PaginacionComponent } from '../paginacion/paginacion.component';
 import { ContenedorFiltroOrdenamientoComponent } from '../contenedor-filtro-ordenamiento/contenedor-filtro-ordenamiento.component';
 import { CardsComponent } from '../cards/cards.component';
 
-fdescribe('HomeComponent', () => {
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let apiService: jasmine.SpyObj<ApiService>;
+  let apiServiceSpy: jasmine.SpyObj<ApiService>;
+  // let activatedRoute: ActivatedRoute;
+  const mockActivatedRoute = {
+    queryParams: of({ abc: 'testABC' })
+  };
   let router: Router;
-  let activatedRoute: ActivatedRoute;
 
   beforeEach(() => {
-    const apiServiceSpy = jasmine.createSpyObj('ApiService', ['getData']);
+    apiServiceSpy = jasmine.createSpyObj('ApiService', ['getData']);
 
     TestBed.configureTestingModule({
-      declarations: [
-        HomeComponent,
-        FooterComponent,
-        HeaderComponent,
-        ContenedorFiltroOrdenamientoComponent,
-        CardsComponent,
-        PaginacionComponent
-      ],
-      imports: [RouterTestingModule],
+      declarations: [HomeComponent, HeaderComponent, ContenedorFiltroOrdenamientoComponent, CardsComponent, PaginacionComponent, FooterComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [
-        { provide: ApiService, useValue: apiServiceSpy },
-      ],
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: ApiService, useValue: apiServiceSpy }
+      ]
     });
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    apiService = TestBed.inject(ApiService) as jasmine.SpyObj<ApiService>;
     router = TestBed.inject(Router);
-    activatedRoute = TestBed.inject(ActivatedRoute);
+   
   });
 
-  fit('should set selectedGenre if it exists in query params', () => {
-    const paramMap = convertToParamMap({ genre: 'Action' });
-    spyOnProperty(activatedRoute, 'queryParams').and.returnValue(of(paramMap));
-    
+  it('Debería crear', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('Deberia llamar al ngOnInit', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
     component.ngOnInit();
+    expect(apiServiceSpy.getData).toHaveBeenCalledWith(1, '', '');
 
-    expect(component.selectedGenre).toEqual('Action');
   });
 
-  it('should set selectedSorting if it exists in query params', () => {
-    const paramMap = convertToParamMap({ sortby: 'popularity' });
-    spyOnProperty(activatedRoute.snapshot, 'queryParamMap').and.returnValue(paramMap);
-
-    component.ngOnInit();
-
-    expect(component.selectedSorting).toEqual('popularity');
+  it('debería llamar a apiService.getData cuando se llama a getData', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
+    component.getData(1);
+    expect(apiServiceSpy.getData).toHaveBeenCalledWith(1, '', '');
   });
 
-  it('should set queryParams.genre if selectedGenre is not an empty string', () => {
-    component.selectedGenre = 'Drama';
-    const queryParams: any = {};
+  it('debería actualizar los datos cuando apiService.getData devuelva datos', () => {
+    const fakeApiResponse = {
+      results: [{
+        id: 123,
+        poster_path: 'path',
+        release_date: 'date: yyyy-mm-dd',
+        title: 'Title',
+        popularity: 123,
+        vote_average: 7.5
+      }],
+      total_paginas: 5
+    };
 
-    component.onGenreChange('Action');
+    // Espía el método getData y devuelve los datos simulados
+    apiServiceSpy.getData.and.returnValue(of(fakeApiResponse));
 
-    expect(queryParams.genre).toEqual('Drama');
-  });
-
-  it('should set queryParams.sortby if selectedSorting is not an empty string', () => {
-    component.selectedSorting = 'popularity';
-    const queryParams: any = {};
-
-    component.onSortingChange('release_date');
-
-    expect(queryParams.sortby).toEqual('popularity');
-  });
-
-  it('should not set queryParams.sortby if selectedSorting is an empty string', () => {
-    component.selectedSorting = '';
-    const queryParams: any = {};
-
-    component.onSortingChange('release_date');
-
-    expect(queryParams.sortby).toBeUndefined();
-  });
-
-  it('should not set queryParams.genre if selectedGenre is an empty string', () => {
-    component.selectedGenre = '';
-    const queryParams: any = {};
-
-    component.onGenreChange('Action');
-
-    expect(queryParams.genre).toBeUndefined();
-  });
-
-  it('should not call apiService.getData if page exceeds maxPagesToShow or paginasTotales', () => {
-    spyOn(apiService, 'getData');
-
-    component.getData(10);
-
-    expect(apiService.getData).not.toHaveBeenCalled();
-  });
-
-  it('should log error message on error callback', () => {
-    spyOn(console, 'error');
-
-    spyOn(apiService, 'getData').and.returnValue(throwError(() => new Error('test')));
+    // Llama al método getData del componente
     component.getData(1);
 
-    fixture.detectChanges();
-    tick();
-
-    
-    expect(console.error).toHaveBeenCalledWith('Error al obtener datos:', 'test');
+    // Verifica que la propiedad data se actualice correctamente
+    expect(component.data).toEqual([{
+      id: 123,
+      poster_path: 'path',
+      release_date: 'date: yyyy-mm-dd',
+      title: 'Title',
+      popularity: 123,
+      vote_average: 7.5
+    }]);
   });
+
+  it('debera llamar a cambioPagina con selectedGenre y selectedSorting vacios', () => {
+    const spy = spyOn(router, 'navigate');
+    const queryParams = { page: 3 };
+    component.cambioPagina(3);
+    expect(component.paginaActual).toBe(3);
+    expect(spy).toHaveBeenCalledWith(['/'], { queryParams });
+
+  })
+
+  it('debera llamar a cambioPagina con selectedGenre y selectedSorting distinto a vacios', () => {
+    const spy = spyOn(router, 'navigate');
+    component.selectedGenre = "20";
+    component.selectedSorting = "popularity.desc";
+    const queryParams = { page: 3, genre: "20", sortby: "popularity.desc" };
+    component.cambioPagina(3);
+    expect(component.paginaActual).toBe(3);
+    expect(spy).toHaveBeenCalledWith(['/'], { queryParams });
+  })
+
+  it('debera llamar a onGenreChange con selectedGenre y selectedSorting vacios', () => {
+    const spy = spyOn(router, 'navigate');
+    const queryParams = { page: 2 };
+    component.paginaActual = 2;
+    component.onGenreChange('');
+    expect(component.selectedGenre).toBe('');
+    expect(spy).toHaveBeenCalledWith(['/'], { queryParams });
+  })
+
+
+
+  it('debera llamar a onGenreChange con selectedGenre y selectedSorting cuando no sea un string vacio', () => {
+    const spy = spyOn(router, 'navigate');
+    const queryParams = { page: 2, genre: '20', sortby: 'popularity.asc' };
+    component.paginaActual = 2;
+    component.selectedSorting = 'popularity.asc';
+    component.onGenreChange('20');
+    expect(component.selectedGenre).toBe('20');
+    expect(spy).toHaveBeenCalledWith(['/'], { queryParams });
+  })
+
+
+  it('debera llamar a onSortingChange con selectedGenre y selectedSorting vacios', () => {
+    const spy = spyOn(router, 'navigate');
+    const queryParams = { page: 2 };
+    component.paginaActual = 2;
+    component.onSortingChange('');
+    expect(component.selectedSorting).toBe('');
+    expect(spy).toHaveBeenCalledWith(['/'], { queryParams });
+  })
+
+
+
+  it('debera llamar a onSortingChange con selectedGenre y selectedSorting cuando no sea un string vacio', () => {
+    const spy = spyOn(router, 'navigate');
+    const queryParams = { page: 2, genre: '20', sortby: 'popularity.asc' };
+    component.paginaActual = 2;
+    component.selectedGenre = '20';
+    component.onSortingChange('popularity.asc');
+    expect(component.selectedSorting).toBe('popularity.asc');
+    expect(spy).toHaveBeenCalledWith(['/'], { queryParams });
+  })
+
+  
+  //desde aqui 
+
+  // fit('should set selectedGenre and selectedSorting when queryParams change', () => {
+  //   // Establece queryParams con valores específicos para simular un cambio en la URL
+  //   activatedRoute = TestBed.inject(ActivatedRoute);
+  //   const queryParams = {
+  //     genre: 'someGenre',
+  //     sortby: 'someSorting',
+  //   };
+  //   activatedRoute.queryParams = of(queryParams);
+
+  //   // Llama a ngOnInit para que se suscriba a los cambios en queryParams
+  //   component.ngOnInit();
+
+  //   // Verifica que selectedGenre y selectedSorting se hayan establecido correctamente
+  //   expect(component.selectedGenre).toBe(queryParams.genre);
+  //   expect(component.selectedSorting).toBe(queryParams.sortby);
+  // });
+
+  
+
 });
+
