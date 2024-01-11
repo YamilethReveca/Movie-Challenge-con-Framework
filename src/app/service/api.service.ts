@@ -40,9 +40,7 @@ export class ApiService {
   }
 
   // Método que realiza una solicitud GET para obtener detalles de una película por su ID
-  getDetallesPelicula(id: number): Observable<any> {
-
-   
+  getDetallesPelicula(id: number): Observable<any> {   
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.apiKey}`,
