@@ -36,7 +36,7 @@ Angular, con su robustez y estructura basada en componentes, se revela como el m
 
 Historia de Usuario 1: Visualización del Catálogo de Películas.
 
-![imagen 1 peliculas](/src/assets/img/escritorio%201%20peliculas.png)
+![imagen 1 peliculas](/src/assets/img/imagen_1.png)
 
 Como usuaria de CinemaHome quiero poder visualizar el catálogo completo de películas que presente la información de manera clara y organizada. Esto me permitirá explorar fácilmente las opciones disponibles y tomar decisiones informadas sobre qué película quiero ver.
 
@@ -47,7 +47,7 @@ Para cada película se muestra: poster, título original , año de lanzamiento ,
 
 Historia de Usuario 2 : Filtro y ordenamiento de Películas.
 
-![imagen 2 filtro y ordenamiento](/src/assets/img/peliculas%20por%20filtro-ordenamiento%20ascendente.png)
+![imagen 2 filtro y ordenamiento](/src/assets/img/imagen_2.png)
 
 Como usuaria de CinemaHome, deseo tener la capacidad de filtrar y ordenar el catálogo de películas según los criterios admitidos por The Movie Database (TMDb) API V3. Esto me permitirá encontrar películas específicas y organizar la lista de manera que se adapte a mis preferencias.
 
@@ -58,7 +58,7 @@ La ordenación debe ser por popularidad, fecha de estreno y por votacion promedi
 
 Historia de Usuario 3: Detalle pelicula.
 
-![imagen 3 detalles pelicula](/src/assets/img/detalle%20pelicula.png)
+![imagen 3 detalles pelicula](/src/assets/img/imagen_3.png)
 
 Como usuaria de CinemaHome, deseo tener la capacidad de consultar los detalles completos de una película específica para obtener información detallada sobre su genero, fecha de estreno, votacion promedio, descripcion de  la pelicula y cualquier dato adicional relevante. Esto me permitirá tomar decisiones informadas antes de decidir ver la película.
 
