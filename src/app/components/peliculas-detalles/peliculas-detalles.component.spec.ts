@@ -37,20 +37,22 @@ describe('PeliculasDetallesComponent', () => {
   it('should load details on init', fakeAsync(() => {
     const detallesMock = { /* Mock de detalles de película */ };
     apiServiceSpy.getDetallesPelicula.and.returnValue(of(detallesMock));
-
-    fixture.detectChanges();
-    tick();
+    component.ngOnInit();
+    
+    //fixture.detectChanges();
+   tick();
+   
 
     expect(component.peliculaDetalles).toEqual(detallesMock);
   }));
 
   it('should handle error on load details', fakeAsync(() => {
     const errorMessage = 'Error al cargar detalles';
-    apiServiceSpy.getDetallesPelicula.and.returnValue(throwError(errorMessage));
-
+    apiServiceSpy.getDetallesPelicula.and.returnValue(throwError(() => new Error(errorMessage)));
     spyOn(console, 'error'); // Espía la función console.error
+    component.ngOnInit();
 
-    fixture.detectChanges();
+    //fixture.detectChanges();
     tick();
 
     expect(console.error).toHaveBeenCalledWith('Error al cargar detalles:', errorMessage);

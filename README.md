@@ -127,9 +127,10 @@ Para hacer las solicitudes de las peliculas fue requerido del themoviedb un apiK
 
 ## 9. Prueba unitarias y Test
 
-en un entorno de Angular utilizando el framework de pruebas Jasmine y TestBed.
+En un entorno de Angular utilizando el framework de pruebas Jasmine y TestBed.
 
 
 
 
-## 10. 10.Despliegue en Vercel
+## 10. Despliegue en Vercel
+Este proyecto fue desplegado en Vercel y podrás encontrarlo en https://movie-challenge-con-framework.vercel.app/

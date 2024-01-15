@@ -29,10 +29,9 @@ export class PeliculasDetallesComponent implements OnInit {
     this.apiService.getDetallesPelicula(id).subscribe(
       (detalles: any) => {
         this.peliculaDetalles = detalles;
-
       },
       (error) => {
-        console.error('Error al cargar detalles:', error);
+        console.error('Error al cargar detalles:', error.message);
       }
     );
   }
