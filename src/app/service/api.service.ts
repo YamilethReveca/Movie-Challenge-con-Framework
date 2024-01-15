@@ -16,7 +16,7 @@ export class ApiService {
 
 // Método que realiza una solicitud GET con una cabecera
 
-  getData(pagina: number, genre: string, sort: string): Observable<any> {
+  getData(pagina: number, genre?: string, sort?: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.apiKey}`,

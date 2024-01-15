@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
@@ -39,7 +39,7 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-   
+
   });
 
   it('Debería crear', () => {
@@ -48,8 +48,9 @@ describe('HomeComponent', () => {
 
   it('Deberia llamar al ngOnInit', () => {
     apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
+    //component.selectedGenre
     component.ngOnInit();
-    expect(apiServiceSpy.getData).toHaveBeenCalledWith(1, '', '');
+    expect(apiServiceSpy.getData).toHaveBeenCalledWith(1, undefined, undefined);
 
   });
 
@@ -90,6 +91,7 @@ describe('HomeComponent', () => {
   });
 
   it('debera llamar a cambioPagina con selectedGenre y selectedSorting vacios', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
     const spy = spyOn(router, 'navigate');
     const queryParams = { page: 3 };
     component.cambioPagina(3);
@@ -99,6 +101,7 @@ describe('HomeComponent', () => {
   })
 
   it('debera llamar a cambioPagina con selectedGenre y selectedSorting distinto a vacios', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
     const spy = spyOn(router, 'navigate');
     component.selectedGenre = "20";
     component.selectedSorting = "popularity.desc";
@@ -109,6 +112,7 @@ describe('HomeComponent', () => {
   })
 
   it('debera llamar a onGenreChange con selectedGenre y selectedSorting vacios', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
     const spy = spyOn(router, 'navigate');
     const queryParams = { page: 2 };
     component.paginaActual = 2;
@@ -120,6 +124,7 @@ describe('HomeComponent', () => {
 
 
   it('debera llamar a onGenreChange con selectedGenre y selectedSorting cuando no sea un string vacio', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
     const spy = spyOn(router, 'navigate');
     const queryParams = { page: 2, genre: '20', sortby: 'popularity.asc' };
     component.paginaActual = 2;
@@ -131,6 +136,7 @@ describe('HomeComponent', () => {
 
 
   it('debera llamar a onSortingChange con selectedGenre y selectedSorting vacios', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
     const spy = spyOn(router, 'navigate');
     const queryParams = { page: 2 };
     component.paginaActual = 2;
@@ -142,6 +148,7 @@ describe('HomeComponent', () => {
 
 
   it('debera llamar a onSortingChange con selectedGenre y selectedSorting cuando no sea un string vacio', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
     const spy = spyOn(router, 'navigate');
     const queryParams = { page: 2, genre: '20', sortby: 'popularity.asc' };
     component.paginaActual = 2;
@@ -151,27 +158,40 @@ describe('HomeComponent', () => {
     expect(spy).toHaveBeenCalledWith(['/'], { queryParams });
   })
 
-  
-  //desde aqui 
 
-  // fit('should set selectedGenre and selectedSorting when queryParams change', () => {
-  //   // Establece queryParams con valores específicos para simular un cambio en la URL
-  //   activatedRoute = TestBed.inject(ActivatedRoute);
-  //   const queryParams = {
-  //     genre: 'someGenre',
-  //     sortby: 'someSorting',
-  //   };
-  //   activatedRoute.queryParams = of(queryParams);
+  it('should handle error on load details', fakeAsync(() => {
+    const errorMessage = 'Error al obtener datos';
+    apiServiceSpy.getData.and.returnValue(throwError(() => new Error(errorMessage)));
+    spyOn(console, 'error'); // Espía la función console.error
+    component.getData(1);
 
-  //   // Llama a ngOnInit para que se suscriba a los cambios en queryParams
-  //   component.ngOnInit();
+    //fixture.detectChanges();
+    tick();
 
-  //   // Verifica que selectedGenre y selectedSorting se hayan establecido correctamente
-  //   expect(component.selectedGenre).toBe(queryParams.genre);
-  //   expect(component.selectedSorting).toBe(queryParams.sortby);
-  // });
+    expect(console.error).toHaveBeenCalledWith('Error al obtener datos:', errorMessage);
+    // Puedes agregar más expectativas según sea necesario para manejar el error en tu componente
+  }));
 
-  
+  it('debe llamar a getData del component y retornar sin llamar al getData del service', fakeAsync(() => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [{ id: 'id', poster_path: 'poster_path' }], total_paginas: 5 }));
+    component.paginasTotales = 5;
+    component.getData(6);
+    tick();
+    expect(component.data).toEqual([]);
+
+
+  }));
+
+  it(' debe asignar selectedGenre y selectedSorting cuando llame a ngOnInit', () => {
+    apiServiceSpy.getData.and.returnValue(of({ results: [], total_paginas: 5 }));
+    TestBed.inject(ActivatedRoute).queryParams = of({ genre: '20', sortby: 'popularity.desc' });
+
+    component.ngOnInit();
+
+    expect(component.selectedGenre).toBe('20');
+    expect(component.selectedSorting).toBe('popularity.desc');
+
+  });
 
 });
 
