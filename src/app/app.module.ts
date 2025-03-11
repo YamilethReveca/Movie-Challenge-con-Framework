@@ -20,7 +20,7 @@ import { CardsComponent } from './components/cards/cards.component';
     HeaderComponent,  
     PaginacionComponent,
     ContenedorFiltroOrdenamientoComponent,
-    CardsComponent,
+    CardsComponent
    
   ],
   imports: [

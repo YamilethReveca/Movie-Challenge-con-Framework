@@ -1,136 +1,128 @@
-# CinemaHome Con Framework Angular
+# Movie Challenge con Framework Angular
+
+## Índice
+
+* [1. Descripción del proyecto](#1-descripcion-del-proyecto)
+* [2. Historias de usuario](#2-historias-de-usuario)
+* [3. Filtro y ordenamiento de películas](#3-filtro-y-ordenamiento-de-peliculas)
+* [4. Detalles de película](#4-detalles-de-pelicula)
+* [5. Prototipo de baja y alta fidelidad en Figma](#5-prototipo-de-baja-y-alta-fidelidad-en-figma)
+* [6. Funcionalidades](#6-funcionalidades)
+* [7. Consideraciones técnicas](#7-consideraciones-tecnicas)
+* [8. API Key](#8-api-key)
+* [9. Pruebas unitarias y test](#9-pruebas-unitarias-y-test)
+* [10. Despliegue en Vercel](#10-despliegue-en-vercel)
 
 
-Índice
+### 1. Descripción del Proyecto
 
-[1. Descripción del proyecto](#1-descripcion-del-proyecto)
+Movie Challenge es una plataforma desarrollada con Angular, que permite a los usuarios explorar y descubrir una amplia variedad de películas mediante la API de The Movie Database (TMDb).
 
-[2. Historias de usuario](#2-historias-de-usuario)
+Este proyecto, construido con componentes modulares, incluye funcionalidades como el filtrado, ordenamiento y paginación de películas, ofreciendo una experiencia interactiva y atractiva. Además, el diseño se trabajó con CSS y SASS, asegurando una interfaz moderna y responsive.
 
-[3. Filtro y ordenamiento de peliculas](#3-filtro-y-ordenamiento-de-peliculas)
+### 2. Historias de Usuario
 
-[4. Detalles pelicula](#4-detalle-pelicula)
+Historia de Usuario 1: Visualización del Catálogo de Películas
 
-[5. Prototipo de baja y alta fidelidad en Figma](#5-prototipo-de-baja-y-alta-fidelidad-en-figma)
-
-[6. Funcionalidades](#6-funcionalidades)
-
-[7. Consideraciones técnicas](#7consideraciones-técnicas)
-
-[8. ApiKey](#8apikey)
-
-[9. Prueba unitarias y Test](#9prueba-test-y-unitarias)
-
-[10.Despliegue en Vercel](#10-despliegue-en-vercel)
-
-
-## 1. Descripción del proyecto.
-
-![imagen de cine](/src/assets/img/ART-3.3-CINE-300x200.jpg)
-
-CinemaHome es una plataforma de transmisión de películas desarrollada con Angular y alimentada por la API de The Movie Database (TMDb). Esta aplicación tiene como objetivo proporcionar a los  usuarios una experiencia cinematográfica desde la comodidad de sus hogares, permitiéndoles  explorar una amplia variedad de películas y disfrutar de contenido de calidad de manera conveniente y personalizada.
-
-Angular, con su robustez y estructura basada en componentes, se revela como el marco de desarrollo ideal. La modularidad inherente de Angular permite la creación eficiente de componentes específicos para cada función, desde el catálogo de películas , filtro, ordenamiento y visualizar los detalles de una película individual.
-
-## 2. Historias de usuario.
-
-Historia de Usuario 1: Visualización del Catálogo de Películas.
-
-![imagen 1 peliculas](/src/assets/img/imagen_1.png)
-
-Como usuaria de CinemaHome quiero poder visualizar el catálogo completo de películas que presente la información de manera clara y organizada. Esto me permitirá explorar fácilmente las opciones disponibles y tomar decisiones informadas sobre qué película quiero ver.
+Como usuaria, quiero ver el catálogo de películas de manera clara y organizada para poder explorar y elegir la que desee ver.
 
 Criterios de Aceptación:
 
-Para cada película se muestra: poster, título original , año de lanzamiento , voto promedio y popularidad.
+Se muestra el póster, título original, año de lanzamiento, voto promedio y popularidad.
+
+Historia de Usuario 2: Filtro y Ordenamiento de Películas
 
 
-Historia de Usuario 2 : Filtro y ordenamiento de Películas.
 
-![imagen 2 filtro y ordenamiento](/src/assets/img/imagen_2.png)
-
-Como usuaria de CinemaHome, deseo tener la capacidad de filtrar y ordenar el catálogo de películas según los criterios admitidos por The Movie Database (TMDb) API V3. Esto me permitirá encontrar películas específicas y organizar la lista de manera que se adapte a mis preferencias.
-
-Criterios de Aceptación:
-
-El filtrado deben incluye diversidad de genero: Ciencia ficción,aventura, animación, historia, drama, terror entre otras 
-La ordenación debe ser por popularidad, fecha de estreno y por votacion promedio de manera ascendente y descendente.
-
-Historia de Usuario 3: Detalle pelicula.
-
-![imagen 3 detalles pelicula](/src/assets/img/imagen_3.png)
-
-Como usuaria de CinemaHome, deseo tener la capacidad de consultar los detalles completos de una película específica para obtener información detallada sobre su genero, fecha de estreno, votacion promedio, descripcion de  la pelicula y cualquier dato adicional relevante. Esto me permitirá tomar decisiones informadas antes de decidir ver la película.
+Como usuaria, quiero filtrar y ordenar las películas según género, popularidad y votación para encontrar las que más me interesan.
 
 Criterios de Aceptación:
 
-Al hacer clic en una película, debería dirigirme a una página detallada de esa película para obtener más información como: el genero, votación promedio, votación total, año de lanzamiento entre otras.
+Filtrado por género (Ciencia ficción, Drama, Terror, etc.).
 
-## 3. Filtro y ordenamiento de peliculas.
+Ordenamiento por popularidad, fecha de estreno y votación promedio.
 
-El componente de filtro y ordenamiento desempeña un papel esencial en la interfaz de usuario de CinemaHome, proporcionando a los usuarios la capacidad de refinar y organizar la visualización del catálogo de películas según sus preferencias individuales. Este componente se integra de manera intuitiva en la experiencia de usuario, facilitando la exploración y selección de películas de manera eficiente.
-
-Filtros:
-
-El componente ofrece opciones de filtro que permiten a los usuarios elegir segun su criterio como género, tomando en cuanta que esta aplicación cuenta con diverso tripo de genero.
-Los filtros se aplican de manera interactiva, actualizando instantáneamente la tabla de películas para mostrar solo aquellas que cumplen con los criterios seleccionados.
-
-Ordenamiento:
-
-Los usuarios pueden ordenar el catálogo de películas por diferentes criterios, como año de lanzamiento, popularidad y votacion promedio.
-
-## 4. Detalles pelicula.
-
-El componente de detalle de película en CinemaHome ofrece a los usuarios una experiencia inmersiva al proporcionar información detallada y completa sobre una película seleccionada. Al hacer clic en una película en el catálogo, los usuarios son redirigidos a esta vista detallada, donde pueden explorar elementos como la descripción, votación promedio, votacion total y fecha de estreno y asi como tambien visualizar el poster de la pelicula.
+Historia de Usuario 3: Detalle de Película
 
 
-## 5. Prototipo de baja y alta fidelidad en figma.
 
-![prototipo figma](/src/assets/img/prototipo%20de%20baja%20fidelidad%20figma.png)
-![prototipo figma](/src/assets/img/prototipo%20de%20baja%20fidelidad%20detalle.png)
+Como usuaria, quiero ver información detallada de una película para conocer más sobre ella antes de verla.
 
-Este fue el diseño que se habia realizado en un principio , la cual se le cambió el color para darle un estilo muy parecido al cine, siendo más atractivo para el usuario.
+Criterios de Aceptación:
 
-## 6. Funcionalidades
+Al hacer clic en una película, se muestra género, descripción, votación promedio y total, y fecha de estreno.
 
-Este proyecto esta realizado por 7 componentes y un servicio, las cuales permite tener cada información segmentada. 
+### 3. Filtro y Ordenamiento de Películas
 
-Entre los componente tenemos: 
+El componente de filtro y ordenamiento permite refinar y organizar la lista de películas de forma intuitiva.
 
-* Header.
-* Home.
-* Contenedor-filtro-ordenamiento.
-* Cards.
-* Paginacion. 
-* Footer.
-* Peliculas-detalles
+Filtros: Por género, con opción de selección dinámica.
+
+Ordenamiento: Ascendente y descendente por popularidad, fecha de estreno y votación promedio.
+
+### 4. Detalles de Película
+
+El componente de detalles proporciona una experiencia inmersiva con información detallada de cada película, incluyendo:
+
+Descripción, género y fecha de estreno.
+
+Votación promedio y total.
+
+Póster y otros datos relevantes.
+
+### 5. Prototipo de Baja y Alta Fidelidad en Figma
+
+El diseño inicial evolucionó para asemejarse más a una experiencia de cine, con colores y estilos más atractivos.
+
+### 6. Funcionalidades
+
+El proyecto está compuesto por 7 componentes y un servicio:
+
+Componentes:
+
+HeaderComponent
+
+HomeComponent
+
+ContenedorFiltroOrdenamientoComponent
+
+CardsComponent
+
+PaginacionComponent
+
+FooterComponent
+
+PeliculasDetallesComponent
 
 Servicio:
 
-Tenemos un servicio llamado apiService y esta nos permite hacer las peticiones HTTP para las peliculas.
+ApiService: Maneja las peticiones HTTP a la API de TMDb.
 
+### 7. Consideraciones Técnicas
 
-## 7. Consideraciones técnicas
+Se utilizaron los siguientes endpoints de TMDb:
 
-Se uso el endpoint themoviedb discover / movie, https://api.themoviedb.org/3/discover/movie para las peliculas y asi también obtener el ordenamiento de las peliculas, sea por popularidad ascendente y descendente, votación promedio ascendente y descendente y total votación ascendente y descendente.
-Para el fitro se uso el endpoint genres/ movie list , https://api.themoviedb.org/3/genre/movie/list y asi obteniendo el id del genero.
+discover/movie: Para obtener la lista de películas y aplicar ordenamientos.
 
-En el peliculas-detalles se uso el endpoint movies / details, 
-https://api.themoviedb.org/3/movie/{movie_id} .
+genre/movie/list: Para obtener los géneros y sus IDs.
 
+movie/{movie_id}: Para obtener los detalles de una película específica.
 
-## 8. ApiKey
+### 8. API Key
 
-Para hacer las solicitudes de las peliculas fue requerido del themoviedb un apiKey para las peticiones.
+Para acceder a los datos de TMDb, se utilizó una API Key proporcionada por la plataforma.
 
+### 9. Pruebas Unitarias y Test
 
+El proyecto incluye pruebas unitarias utilizando Jasmine y TestBed en un entorno Angular.
 
-## 9. Prueba unitarias y Test
+### 10. Despliegue en Vercel
 
-En un entorno de Angular utilizando el framework de pruebas Jasmine y TestBed.
+Este proyecto está desplegado en Vercel y puedes verlo en el siguiente enlace:
 
+🔗 [Movie Challenge en Vercel](https://movie-challenge-con-framework.vercel.app/)
 
+🚀 Conclusión
 
+Este fue el primer proyecto desarrollado con Angular, permitiendo el aprendizaje y aplicación de componentes, enrutamiento, servicios, consumo de API REST y estilos con CSS/SASS. Movie Challenge es una plataforma que brinda una experiencia fluida para los amantes del cine. 🎬✨
 
-## 10. Despliegue en Vercel
-Este proyecto fue desplegado en Vercel y podrás encontrarlo en https://movie-challenge-con-framework.vercel.app/

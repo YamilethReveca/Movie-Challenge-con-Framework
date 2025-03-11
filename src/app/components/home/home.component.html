@@ -1,8 +1,7 @@
-<app-header></app-header>
+
 <app-contenedor-filtro-ordenamiento [selectedGenre]="selectedGenre" [selectedSorting]="selectedSorting"
   (filter)="onGenreChange($event)" (sort)="onSortingChange($event)">
 </app-contenedor-filtro-ordenamiento>
 <app-cards [peliculas]="data"></app-cards>
 <app-paginacion [currentPage]="paginaActual" [totalPages]="paginasTotales"
   (pageChange)="cambioPagina($event)"></app-paginacion>
-<app-footer></app-footer>

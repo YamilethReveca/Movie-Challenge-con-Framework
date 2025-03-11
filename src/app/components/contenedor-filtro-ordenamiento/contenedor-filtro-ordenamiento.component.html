@@ -1,7 +1,7 @@
-<section id="Filtro-ordenamiento-centrado">
+<section id="Filtro-ordenamiento-centrado" >
   <section class="filter-order">
-    <select class="form-select pointer" aria-label="Default select example" (change)="onGenreChange($event)">
-      <option [selected]="selectedGenre == ''" value="">Filter by genres</option>      
+    <select class="form-select" aria-label="Default select example" (change)="onGenreChange($event)">
+      <option [selected]="selectedGenre == ''" value="">Género</option>
       <option [selected]="selectedGenre == '28'" value="28">Acción</option>
       <option [selected]="selectedGenre == '12'" value="12">Aventura</option>
       <option [selected]="selectedGenre == '16'" value="16">Animación</option>
@@ -18,8 +18,8 @@
   </section>
 
   <section class="filter-order">
-    <select class="form-select pointer" aria-label="Default select example" (change)="onSortingChange($event)">
-      <option [selected]="selectedSorting == ''" value="">Sort by</option>
+    <select class="form-select" aria-label="Default select example" (change)="onSortingChange($event)">
+      <option [selected]="selectedSorting == ''" value="">Ordenar</option>
       <option [selected]="selectedSorting == 'popularity.asc'" value="popularity.asc">Popularidad ascendente</option>
       <option [selected]="selectedSorting == 'popularity.desc'" value="popularity.desc">Popularidad descendente</option>
       <option [selected]="selectedSorting == 'vote_average.asc'" value="vote_average.asc">Votación promedio ascendente</option>

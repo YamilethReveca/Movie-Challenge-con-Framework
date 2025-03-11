@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+/* estilos globales */
+
+:root{
+  --fuente-family:"Krona One";
+  --fuente-size: 20px;
+  --color-fuente: rgb(165, 21, 140);
+  --color-fuente-secundario: white;
+  --color-background-primario: rgb(24, 28, 20);
+  --color-background-secundario: rgb(105, 117, 101);
+  --color-background-terciario :rgb(60, 61, 55);
+  --color-background-cards: rgb(12,10,10);
+  --color-body:rgb(236, 223, 204);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  height: 100%;
+}
+
+
+.main{
+  height: calc(100% - 300px);
+}
+
+body{
+  font-family: var(--fuente-family);
+  font-size: var(--fuente-size) ;
+  width: 100%;
+  background-color: var(--color-body);
+}

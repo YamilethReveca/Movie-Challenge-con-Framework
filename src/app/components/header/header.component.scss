@@ -1,26 +1,14 @@
-* {
-  margin: 0;
-}
+
+@import url(../../../styles.scss);
+
 
 header {
-  background-color: rgb(12, 10, 10);
   width: 100%;
   height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-h1 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 100px;
   text-align: center;
-  color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-img {
-  width: 400px;
-  height: 200px;
+  background-color: var(--color-background-primario);
+  color: var(--color-fuente);
 }
